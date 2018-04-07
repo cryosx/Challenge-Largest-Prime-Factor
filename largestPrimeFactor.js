@@ -16,7 +16,7 @@ exports.largestPrimeFactor = function(n) {
           result[i] = 1;
         }
         num = num / i;
-        i = 2;
+        i = 1;
       }
     }
     return result;
