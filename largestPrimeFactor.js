@@ -1,40 +1,29 @@
 exports.largestPrimeFactor = function(n) {
-  var primeNumber = 0;
-  // do your work here
-  let primes = findPrime(Math.ceil(Math.sqrt(n)));
-
-  for (let i = primes.length - 1; i >= 0; i--) {
-    if (n % primes[i] === 0) {
-      primeNumber = primes[i];
-      break;
+  function primeFactorization(num) {
+    if (num < 2) {
+      return { 1: 1 };
     }
-  }
+    let result = {};
 
-  function findPrime(num) {
-    let prime = new Array(num);
-    prime.fill(true);
-    for (let i = 2; i < Math.sqrt(num); i++) {
-      if (prime[i]) {
-        for (let j = i * 2; j < num; j += i) {
-          prime[j] = false;
+    for (let i = 2; i <= num; i++) {
+      if (num === 1) {
+        break;
+      }
+      if (num % i === 0) {
+        if (result.hasOwnProperty(i)) {
+          result[i]++;
+        } else {
+          result[i] = 1;
         }
+        num = num / i;
+        i = 2;
       }
     }
-    let temp = [];
-    for (let i = 0; i < prime.length; i++) {
-      if (prime[i]) {
-        temp.push(i);
-      }
-    }
-
-    prime = temp;
-    prime.shift();
-    prime.shift();
-
-    return prime;
+    return result;
   }
+  let primesFactors = Object.keys(primeFactorization(n));
 
-  return primeNumber;
+  return Number.parseInt(primesFactors[primesFactors.length - 1]);
 };
 
 // Sieve of Eratosthenes
